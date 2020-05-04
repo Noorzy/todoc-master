@@ -1,9 +1,9 @@
 package com.cleanup.todoc.model;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import java.util.Comparator;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * <p>Model for the tasks of the application.</p>
