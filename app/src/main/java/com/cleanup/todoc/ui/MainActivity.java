@@ -122,12 +122,13 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         todocViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> allTasks) {
-                // TODO update recyclerview
+
 
                 tasks = allTasks;
-
+                
                 adapter.updateTasks(tasks);
-                Toast.makeText(MainActivity.this, "onchanged", Toast.LENGTH_SHORT).show();
+                updateTasks();
+
             }
         });
         todocViewModel.getAllProjects().observe(this, new Observer<List<Project>>() {
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listTasks.setAdapter(adapter);
+
 
         findViewById(R.id.fab_add_task).setOnClickListener(new View.OnClickListener() {
             @Override
