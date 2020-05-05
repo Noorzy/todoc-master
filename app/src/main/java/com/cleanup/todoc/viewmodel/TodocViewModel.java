@@ -36,7 +36,7 @@ public class TodocViewModel extends AndroidViewModel {
         allProjects = projectRepository.getAllProjects();
     }
 
-    public void insertTask( Task task) {
+    public void insertTask(Task task) {
         taskRepository.insert(task);
     }
 
@@ -44,7 +44,7 @@ public class TodocViewModel extends AndroidViewModel {
         taskRepository.update(task);
     }
 
-    public void deleteTask( Task task) {
+    public void deleteTask(Task task) {
         taskRepository.delete(task);
     }
 

@@ -17,22 +17,23 @@ public class TaskRepository {
     private LiveData<List<Task>> allTasks;
     private LiveData<Integer> dbSize;
 
-    public TaskRepository(Application application){
+    public TaskRepository(Application application) {
         TodocDatabase database = TodocDatabase.getInstance(application);
         taskDao = database.taskDao();
         allTasks = taskDao.getAllTasks();
         dbSize = taskDao.getDbSize();
     }
 
-    public void insert(Task task){
+    public void insert(Task task) {
         new InsertTaskAsyncTask(taskDao).execute(task);
 
     }
 
-    public void update(Task task){
+    public void update(Task task) {
 
     }
-    public void delete(Task task){
+
+    public void delete(Task task) {
         new DeleteTaskAsyncTask(taskDao).execute(task);
 
     }
@@ -41,15 +42,17 @@ public class TaskRepository {
         return allTasks;
     }
 
-    public LiveData<Integer> getDbSize(){
+    public LiveData<Integer> getDbSize() {
         return dbSize;
     }
 
-    public static class InsertTaskAsyncTask extends AsyncTask<Task , Void, Void>{
+    public static class InsertTaskAsyncTask extends AsyncTask<Task, Void, Void> {
         private TaskDao taskDao;
+
         private InsertTaskAsyncTask(TaskDao taskDao) {
             this.taskDao = taskDao;
         }
+
         @Override
         protected Void doInBackground(Task... tasks) {
             taskDao.insert(tasks[0]);
@@ -57,7 +60,7 @@ public class TaskRepository {
         }
     }
 
-    public static class DeleteTaskAsyncTask extends AsyncTask<Task, Void, Void>{
+    public static class DeleteTaskAsyncTask extends AsyncTask<Task, Void, Void> {
         private TaskDao taskDao;
 
         public DeleteTaskAsyncTask(TaskDao taskDao) {

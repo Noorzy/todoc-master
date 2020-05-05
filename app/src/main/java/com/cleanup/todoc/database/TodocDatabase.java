@@ -1,6 +1,5 @@
 package com.cleanup.todoc.database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -11,7 +10,6 @@ import com.cleanup.todoc.model.Task;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
@@ -24,6 +22,7 @@ public abstract class TodocDatabase extends RoomDatabase {
 
     //---DAO---
     public abstract ProjectDao projectDao();
+
     public abstract TaskDao taskDao();
 
     //---INSTANCE---
@@ -38,7 +37,7 @@ public abstract class TodocDatabase extends RoomDatabase {
         return instance;
     }
 
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -49,11 +48,11 @@ public abstract class TodocDatabase extends RoomDatabase {
         }
     };
 
-    private static class PopulateDbAsyncTask extends AsyncTask<Void,Void,Void>{
+    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         private TaskDao taskDao;
         private ProjectDao projectDao;
 
-        private PopulateDbAsyncTask(TodocDatabase db){
+        private PopulateDbAsyncTask(TodocDatabase db) {
             taskDao = db.taskDao();
             projectDao = db.projectDao();
 
@@ -64,12 +63,12 @@ public abstract class TodocDatabase extends RoomDatabase {
             projectDao.insert(new Project(1L, "Projet Tartampion", 0xFFEADAD1));
             projectDao.insert(new Project(2L, "Projet Lucidia", 0xFFB4CDBA));
             projectDao.insert(new Project(3L, "Projet Circus", 0xFFA3CED2));
-            taskDao.insert(new Task(1,1L,"essai de la database",1));
-            taskDao.insert(new Task(2,1L,"Ajouter un header sur le site",2));
-            taskDao.insert(new Task(3,2L,"Modifier la couleur des textes",3));
-            taskDao.insert(new Task(4,2L,"Appeler le client",4));
-            taskDao.insert(new Task (5,1L,"Intégrer Google Analytics",5));
-            taskDao.insert(new Task(6,3L,"Ajouter un header sur le site",6));
+            taskDao.insert(new Task(1, 1L, "essai de la database", 1));
+            taskDao.insert(new Task(2, 1L, "Ajouter un header sur le site", 2));
+            taskDao.insert(new Task(3, 2L, "Modifier la couleur des textes", 3));
+            taskDao.insert(new Task(4, 2L, "Appeler le client", 4));
+            taskDao.insert(new Task(5, 1L, "Intégrer Google Analytics", 5));
+            taskDao.insert(new Task(6, 3L, "Ajouter un header sur le site", 6));
             return null;
         }
     }

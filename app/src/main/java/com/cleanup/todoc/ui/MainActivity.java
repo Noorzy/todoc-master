@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
@@ -45,24 +45,22 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     /**
      * List of all projects available in the application
      */
-    //private Project[] allProjects = Project.getAllProjects();
+
     private Project[] allProjects;
 
     /**
      * List of all current tasks of the application
      */
     @NonNull
-    //private final ArrayList<Task> tasks = new ArrayList<>();
+
     private List<Task> tasks = new ArrayList<>();
-
-
 
 
     /**
      * The adapter which handles the list of tasks
      */
     //private final TasksAdapter adapter = new TasksAdapter(tasks, this);
-    private  TasksAdapter adapter;
+    private TasksAdapter adapter;
     /**
      * The sort method to be used to display tasks
      */
@@ -110,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         setContentView(R.layout.activity_main);
 
 
-
         //---VIEWMODEL---
         todocViewModel = new ViewModelProvider(this).get(TodocViewModel.class);
         todocViewModel.getDbSize().observe(this, new Observer<Integer>() {
@@ -119,13 +116,11 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dbSize = integer;
             }
         });
+
         todocViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> allTasks) {
-
-
                 tasks = allTasks;
-                
                 adapter.updateTasks(tasks);
                 updateTasks();
 
@@ -137,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 allProjects = projects.toArray(new Project[0]);
             }
         });
-
 
 
         listTasks = findViewById(R.id.list_tasks);
@@ -227,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dialogInterface.dismiss();
             }
             // If name has been set, but project has not been set (this should never occur)
-            else{
+            else {
                 dialogInterface.dismiss();
             }
         }
@@ -258,7 +252,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void addTask(@NonNull Task task) {
         todocViewModel.insertTask(task);
-        //tasks.add(task);
         updateTasks();
     }
 
