@@ -10,19 +10,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.viewmodel.TodocViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,22 +38,31 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author Gaëtan HERFRAY
  */
 public class MainActivity extends AppCompatActivity implements TasksAdapter.DeleteTaskListener {
+    private TodocViewModel todocViewModel;
+
+    public static Integer dbSize;
+
     /**
      * List of all projects available in the application
      */
-    private final Project[] allProjects = Project.getAllProjects();
+    //private Project[] allProjects = Project.getAllProjects();
+    private Project[] allProjects;
 
     /**
      * List of all current tasks of the application
      */
     @NonNull
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    //private final ArrayList<Task> tasks = new ArrayList<>();
+    private List<Task> tasks = new ArrayList<>();
+
+
+
 
     /**
      * The adapter which handles the list of tasks
      */
-    private final TasksAdapter adapter = new TasksAdapter(tasks, this);
-
+    //private final TasksAdapter adapter = new TasksAdapter(tasks, this);
+    private  TasksAdapter adapter;
     /**
      * The sort method to be used to display tasks
      */
@@ -95,8 +109,40 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
         setContentView(R.layout.activity_main);
 
+
+
+        //---VIEWMODEL---
+        todocViewModel = new ViewModelProvider(this).get(TodocViewModel.class);
+        todocViewModel.getDbSize().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                dbSize = integer;
+            }
+        });
+        todocViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(List<Task> allTasks) {
+                // TODO update recyclerview
+
+                tasks = allTasks;
+
+                adapter.updateTasks(tasks);
+                Toast.makeText(MainActivity.this, "onchanged", Toast.LENGTH_SHORT).show();
+            }
+        });
+        todocViewModel.getAllProjects().observe(this, new Observer<List<Project>>() {
+            @Override
+            public void onChanged(List<Project> projects) {
+                allProjects = projects.toArray(new Project[0]);
+            }
+        });
+
+
+
         listTasks = findViewById(R.id.list_tasks);
         lblNoTasks = findViewById(R.id.lbl_no_task);
+
+        adapter = new TasksAdapter(tasks, this);
 
         listTasks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listTasks.setAdapter(adapter);
@@ -136,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     @Override
     public void onDeleteTask(Task task) {
-        tasks.remove(task);
+        todocViewModel.deleteTask(task);
         updateTasks();
     }
 
@@ -209,7 +255,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * @param task the task to be added to the list
      */
     private void addTask(@NonNull Task task) {
-        tasks.add(task);
+        todocViewModel.insertTask(task);
+        //tasks.add(task);
         updateTasks();
     }
 
