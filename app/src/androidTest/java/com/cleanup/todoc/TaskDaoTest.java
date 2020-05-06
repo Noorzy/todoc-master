@@ -107,4 +107,20 @@ public class TaskDaoTest {
         List<Project> allProjects = LiveDataTestUtil.getValue(this.database.projectDao().getAllProjects());
         assertTrue(allProjects.isEmpty());
     }
+
+    @Test
+    public void deleteTaskWithSuccess() throws  InterruptedException{
+        //BEFORE : Creating a new task
+        this.database.projectDao().insert(PROJECT_DEMO);
+        this.database.taskDao().insert(TASK_DEMO);
+        //Test : Create with success
+        List<Task> tasks = LiveDataTestUtil.getValue(this.database.taskDao().getAllTasks());
+        assertEquals(1, tasks.size());
+        // DELETE TASK
+        this.database.taskDao().delete(TASK_DEMO);
+        //TEST : Delete with success
+        tasks = LiveDataTestUtil.getValue(this.database.taskDao().getAllTasks());
+        assertTrue(tasks.isEmpty());
+
+    }
 }

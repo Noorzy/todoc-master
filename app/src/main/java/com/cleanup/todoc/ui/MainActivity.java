@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
 
         //---VIEWMODEL---
+            //--- Database Size
         todocViewModel = new ViewModelProvider(this).get(TodocViewModel.class);
         todocViewModel.getDbSize().observe(this, new Observer<Integer>() {
             @Override
@@ -116,16 +117,16 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dbSize = integer;
             }
         });
-
+            //--- Tasks
         todocViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> allTasks) {
                 tasks = allTasks;
                 adapter.updateTasks(tasks);
                 updateTasks();
-
             }
         });
+            //---Projects
         todocViewModel.getAllProjects().observe(this, new Observer<List<Project>>() {
             @Override
             public void onChanged(List<Project> projects) {
