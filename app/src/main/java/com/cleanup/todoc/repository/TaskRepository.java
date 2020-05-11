@@ -29,10 +29,6 @@ public class TaskRepository {
 
     }
 
-    public void update(Task task) {
-
-    }
-
     public void delete(Task task) {
         new DeleteTaskAsyncTask(taskDao).execute(task);
 

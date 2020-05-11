@@ -8,8 +8,6 @@ import com.cleanup.todoc.database.dao.TaskDao;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
-import java.util.Date;
-
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -65,12 +63,6 @@ public abstract class TodocDatabase extends RoomDatabase {
             projectDao.insert(new Project(1L, "Projet Tartampion", 0xFFEADAD1));
             projectDao.insert(new Project(2L, "Projet Lucidia", 0xFFB4CDBA));
             projectDao.insert(new Project(3L, "Projet Circus", 0xFFA3CED2));
-            taskDao.insert(new Task(1, 1L, "essai de la database", new Date().getTime()));
-            taskDao.insert(new Task(2, 1L, "Ajouter un header sur le site", new Date().getTime()));
-            taskDao.insert(new Task(3, 2L, "Modifier la couleur des textes", new Date().getTime()));
-            taskDao.insert(new Task(4, 2L, "Appeler le client", new Date().getTime()));
-            taskDao.insert(new Task(5, 1L, "Intégrer Google Analytics", new Date().getTime()));
-            taskDao.insert(new Task(6, 3L, "Ajouter un header sur le site", new Date().getTime()));
             return null;
         }
     }

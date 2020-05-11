@@ -40,10 +40,6 @@ public class TodocViewModel extends AndroidViewModel {
         taskRepository.insert(task);
     }
 
-    public void updateTask(Task task) {
-        taskRepository.update(task);
-    }
-
     public void deleteTask(Task task) {
         taskRepository.delete(task);
     }
