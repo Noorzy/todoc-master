@@ -18,6 +18,7 @@ import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.viewmodel.TodocViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     /**
      * The adapter which handles the list of tasks
      */
-    //private final TasksAdapter adapter = new TasksAdapter(tasks, this);
+
     private TasksAdapter adapter;
     /**
      * The sort method to be used to display tasks
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
 
         //---VIEWMODEL---
+
+
             //--- Database Size
         todocViewModel = new ViewModelProvider(this).get(TodocViewModel.class);
         todocViewModel.getDbSize().observe(this, new Observer<Integer>() {
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dbSize = integer;
             }
         });
+
             //--- Tasks
         todocViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
@@ -131,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             @Override
             public void onChanged(List<Project> projects) {
                 allProjects = projects.toArray(new Project[0]);
+                adapter.updateProjects(Arrays.asList(allProjects));
             }
         });
 

@@ -22,17 +22,21 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author Gaëtan HERFRAY
  */
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHolder> {
+
     /**
      * The list of tasks the adapter deals with
      */
     @NonNull
     private List<Task> tasks;
+    private List<Project> projects;
+    private Project taskProject;
 
     /**
      * The listener for when a task needs to be deleted
      */
     @NonNull
     private final DeleteTaskListener deleteTaskListener;
+
 
     /**
      * Instantiates a new TasksAdapter.
@@ -51,6 +55,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
      */
     void updateTasks(@NonNull final List<Task> tasks) {
         this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+
+    void updateProjects(@NonNull final List<Project> projects) {
+        this.projects = projects;
         notifyDataSetChanged();
     }
 
@@ -150,7 +159,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
 
-            final Project taskProject = task.getProject();
+            for (Project project : projects) {
+                if (project.getId() == task.getProjectId()) {
+                    taskProject = project;
+                }
+            }
+
             if (taskProject != null) {
                 imgProject.setSupportImageTintList(ColorStateList.valueOf(taskProject.getColor()));
                 lblProjectName.setText(taskProject.getName());

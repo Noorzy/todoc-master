@@ -17,11 +17,15 @@ public class TaskRepository {
     private LiveData<List<Task>> allTasks;
     private LiveData<Integer> dbSize;
 
+
+
     public TaskRepository(Application application) {
         TodocDatabase database = TodocDatabase.getInstance(application);
         taskDao = database.taskDao();
         allTasks = taskDao.getAllTasks();
         dbSize = taskDao.getDbSize();
+
+
     }
 
     public void insert(Task task) {
@@ -41,6 +45,8 @@ public class TaskRepository {
     public LiveData<Integer> getDbSize() {
         return dbSize;
     }
+
+
 
     public static class InsertTaskAsyncTask extends AsyncTask<Task, Void, Void> {
         private TaskDao taskDao;

@@ -1,5 +1,8 @@
 package com.cleanup.todoc.model;
 
+import com.cleanup.todoc.database.TodocDatabase;
+import com.cleanup.todoc.viewmodel.TodocViewModel;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,10 +55,10 @@ public class Project {
     @NonNull
     public static Project[] getAllProjects() {
         return new Project[]{
-                new Project(1L, "Projet Tartampion", 0xFFEADAD1),
-                new Project(2L, "Projet Lucidia", 0xFFB4CDBA),
-                new Project(3L, "Projet Circus", 0xFFA3CED2),
-        };
+               new Project(1L, "Projet Tartampion", 0xFFEADAD1),
+               new Project(2L, "Projet Lucidia", 0xFFB4CDBA),
+               new Project(3L, "Projet Circus", 0xFFA3CED2),
+       };
     }
 
     /**

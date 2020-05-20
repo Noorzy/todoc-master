@@ -41,7 +41,6 @@ public abstract class TodocDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            // TODO load sampledata/tasks.json in the database
             new PopulateDbAsyncTask(instance).execute();
 
 
@@ -49,11 +48,9 @@ public abstract class TodocDatabase extends RoomDatabase {
     };
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
-        private TaskDao taskDao;
         private ProjectDao projectDao;
 
         private PopulateDbAsyncTask(TodocDatabase db) {
-            taskDao = db.taskDao();
             projectDao = db.projectDao();
 
         }

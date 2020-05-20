@@ -25,5 +25,4 @@ public interface TaskDao {
     @Query("SELECT COUNT (id) FROM task_table")
     LiveData<Integer> getDbSize();
 
-
 }

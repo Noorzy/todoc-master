@@ -1,6 +1,5 @@
 package com.cleanup.todoc;
 
-
 import com.cleanup.todoc.database.TodocDatabase;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
